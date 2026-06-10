@@ -59,6 +59,7 @@
   nav a.vote-btn {
     background: var(--gold); color: var(--purple-deep);
     padding: 0.45rem 1.15rem; border-radius: 4px; font-weight: 700;
+    white-space: nowrap;
   }
   nav a.vote-btn:hover { background: var(--gold-deep); color: var(--purple-deep); }
   @media (max-width: 560px) {
@@ -112,10 +113,17 @@
 
   header.hero { position: relative; overflow: hidden; }
   .hero .portrait-bg {
-    position: absolute; top: 0; right: 0; height: 100%; width: auto;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);
-    mask-image: linear-gradient(to right, transparent 0%, black 40%);
+    position: absolute; top: 0; height: 100%; width: auto;
+    right: max(0px, calc(50vw - 31rem));
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 42%, black 78%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 42%, black 78%, transparent 100%);
     opacity: 0.55; pointer-events: none;
+  }
+  @media (max-width: 1100px) {
+    .hero .portrait-bg {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);
+      mask-image: linear-gradient(to right, transparent 0%, black 40%);
+    }
   }
   .hero-inner { position: relative; text-align: left; max-width: 52rem; }
   .hero-inner > * { max-width: 34rem; }
