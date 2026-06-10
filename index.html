@@ -161,6 +161,30 @@
   .stat .label { font-size: 0.82rem; color: rgba(255,255,255,0.8); margin-top: 0.3rem; line-height: 1.4; }
   @media (max-width: 640px) { .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 1.75rem 1rem; } }
 
+  /* ---------- Commitments strip ---------- */
+  .commitments {
+    background: var(--tint); border-bottom: 1px solid var(--rule);
+    padding: 1.3rem 1.5rem;
+  }
+  .commitments-inner {
+    max-width: 64rem; margin: 0 auto;
+    display: flex; flex-wrap: wrap; gap: 0.55rem;
+    justify-content: center; align-items: center;
+  }
+  .commitments-label {
+    font-family: var(--display); font-weight: 800; font-size: 0.8rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--purple); margin-right: 0.5rem;
+  }
+  .commitments a {
+    background: #fff; border: 1.5px solid var(--rule); border-radius: 999px;
+    padding: 0.4rem 1rem; text-decoration: none;
+    color: var(--purple); font-weight: 600; font-size: 0.88rem;
+    white-space: nowrap;
+  }
+  .commitments a:hover { border-color: var(--purple); }
+  .commitments a b { color: var(--gold-deep); font-family: var(--display); font-weight: 900; margin-right: 0.35rem; }
+
   /* ---------- Sections ---------- */
   main { max-width: 47rem; margin: 0 auto; padding: 0 1.5rem; }
   section { padding-top: 4.5rem; }
@@ -349,6 +373,17 @@
     <div class="stat"><div class="num">5&times;</div><div class="label">Convention co-chair</div></div>
     <div class="stat"><div class="num">$115K+</div><div class="label">Raised for the HI, MN, NY, DC, LA &amp; PHIL chapters</div></div>
     <div class="stat"><div class="num">10+</div><div class="label">Years of AAJA service at the national and chapter level</div></div>
+  </div>
+</div>
+
+<div class="commitments">
+  <div class="commitments-inner">
+    <span class="commitments-label">Five Commitments</span>
+    <a href="#expanding-the-tent"><b>01</b>Expanding the Tent</a>
+    <a href="#put-in-the-years"><b>02</b>Members Who've Put In the Years</a>
+    <a href="#celebrating-who-we-are"><b>03</b>Celebrating Who We Are</a>
+    <a href="#convention-feeling"><b>04</b>The Convention Feeling, Year-Round</a>
+    <a href="#chapters-affinity-groups"><b>05</b>Chapters &amp; Affinity Groups</a>
   </div>
 </div>
 
