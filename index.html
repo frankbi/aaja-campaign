@@ -211,18 +211,23 @@
   }
   @media (max-width: 640px) { .exp-grid { grid-template-columns: 1fr; } }
 
-  /* ---------- Photo carousel ---------- */
-  .carousel { position: relative; margin-top: 2rem; }
+  /* ---------- Photo carousel (filmstrip) ---------- */
+  .carousel {
+    position: relative; margin-top: 2rem;
+    width: min(76rem, 100vw - 3rem);
+    margin-left: 50%; transform: translateX(-50%);
+  }
   .carousel-track {
-    display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-    gap: 0.75rem; border-radius: 8px;
+    display: flex; overflow-x: auto; scroll-snap-type: x proximity;
+    gap: 0.6rem;
     scrollbar-width: none; -webkit-overflow-scrolling: touch;
   }
   .carousel-track::-webkit-scrollbar { display: none; }
   .carousel-track img {
-    flex: 0 0 100%; width: 100%; height: clamp(16rem, 55vw, 28rem);
-    object-fit: contain; background: var(--tint);
-    border-radius: 8px; scroll-snap-align: center;
+    flex: 0 0 auto; width: auto;
+    height: clamp(13rem, 32vw, 21rem);
+    object-fit: cover; background: var(--tint);
+    border-radius: 8px; scroll-snap-align: start;
   }
   .carousel-nav {
     display: flex; align-items: center; justify-content: center;
@@ -236,10 +241,7 @@
     display: flex; align-items: center; justify-content: center;
   }
   .carousel-nav button:hover { background: var(--purple-bright); }
-  .carousel-count {
-    font-family: var(--display); font-weight: 700;
-    color: var(--purple); min-width: 4.5rem; text-align: center;
-  }
+  .carousel-nav button:disabled { opacity: 0.35; cursor: default; }
 
   /* ---------- Vote ---------- */
   .vote-band {
@@ -503,9 +505,8 @@
       <img src="photos/photo-25.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
     </div>
     <div class="carousel-nav">
-      <button type="button" id="prev" aria-label="Previous photo">&#8592;</button>
-      <span class="carousel-count" id="count">1 / 25</span>
-      <button type="button" id="next" aria-label="Next photo">&#8594;</button>
+      <button type="button" id="prev" aria-label="Scroll photos back">&#8592;</button>
+      <button type="button" id="next" aria-label="Scroll photos forward">&#8594;</button>
     </div>
   </div>
 </section>
@@ -534,13 +535,18 @@
 
 <script>
   const track = document.getElementById('track');
-  const count = document.getElementById('count');
-  const total = track.children.length;
-  const slideW = () => track.children[0].getBoundingClientRect().width + 12;
-  const index = () => Math.min(total - 1, Math.max(0, Math.round(track.scrollLeft / slideW())));
-  document.getElementById('prev').onclick = () => track.scrollBy({left: -slideW(), behavior: 'smooth'});
-  document.getElementById('next').onclick = () => track.scrollBy({left: slideW(), behavior: 'smooth'});
-  track.addEventListener('scroll', () => { count.textContent = (index() + 1) + ' / ' + total; }, {passive: true});
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const step = () => track.clientWidth * 0.8;
+  prev.onclick = () => track.scrollBy({left: -step(), behavior: 'smooth'});
+  next.onclick = () => track.scrollBy({left: step(), behavior: 'smooth'});
+  const update = () => {
+    prev.disabled = track.scrollLeft <= 5;
+    next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 5;
+  };
+  track.addEventListener('scroll', update, {passive: true});
+  window.addEventListener('load', update);
+  update();
 </script>
 </body>
 </html>
