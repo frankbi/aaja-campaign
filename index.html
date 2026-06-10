@@ -79,8 +79,9 @@
   }
   nav a.vote-btn:hover { background: var(--gold-deep); color: var(--purple-deep); }
   @media (max-width: 560px) {
-    nav { gap: 1rem; padding: 0.7rem 1rem; }
-    nav .brand { font-size: 0.9rem; }
+    nav { gap: 1rem; padding: 0.8rem 1rem; }
+    nav .brand { font-size: 0.9rem; white-space: normal; line-height: 1.4; }
+    nav .brand span { display: block; }
     nav a:not(.vote-btn):not(.brand) { display: none; }
   }
 
@@ -341,7 +342,8 @@
   .vote-card ol { margin: 0 0 0 1.3rem; }
   .vote-card li { margin-bottom: 0.75rem; padding-left: 0.25rem; }
   .vote-card li::marker { font-weight: 700; color: var(--purple); }
-  .vote-card a { color: var(--purple); font-weight: 600; text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+  .vote-card a { color: var(--purple); font-weight: 600; text-decoration-thickness: 1.5px; text-underline-offset: 2px; overflow-wrap: anywhere; }
+  @media (max-width: 480px) { .vote-card { padding: 1.5rem 1.25rem; } }
 
   /* ---------- Footer ---------- */
   footer {
