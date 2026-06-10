@@ -109,6 +109,22 @@
   .btn-ghost { color: #fff; border: 2px solid rgba(255,255,255,0.5); }
   .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
+
+  header.hero { position: relative; overflow: hidden; }
+  .hero .portrait-bg {
+    position: absolute; top: 0; right: 0; height: 100%; width: 52%;
+    object-fit: cover; object-position: 50% 18%;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 55%);
+    mask-image: linear-gradient(to right, transparent 0%, black 55%);
+    opacity: 0.55; pointer-events: none;
+  }
+  .hero-inner { position: relative; text-align: left; max-width: 52rem; }
+  .hero-inner > * { max-width: 34rem; }
+  .hero p.tagline { margin-left: 0; margin-right: 0; }
+  .hero .actions { justify-content: flex-start; }
+  @media (max-width: 720px) {
+    .hero .portrait-bg { width: 100%; opacity: 0.25; }
+  }
   /* ---------- Stats band ---------- */
   .stats {
     background: var(--purple-deep);
@@ -296,6 +312,7 @@
 </nav>
 
 <header class="hero" id="top">
+  <img class="portrait-bg" src="photos/headshot.jpg" alt="" aria-hidden="true">
   <div class="hero-inner">
     <span class="eyebrow">For AAJA President</span>
     <h1>Frank Bi</h1>
