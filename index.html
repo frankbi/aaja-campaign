@@ -211,6 +211,36 @@
   }
   @media (max-width: 640px) { .exp-grid { grid-template-columns: 1fr; } }
 
+  /* ---------- Photo carousel ---------- */
+  .carousel { position: relative; margin-top: 2rem; }
+  .carousel-track {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+    gap: 0.75rem; border-radius: 8px;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .carousel-track::-webkit-scrollbar { display: none; }
+  .carousel-track img {
+    flex: 0 0 100%; width: 100%; height: clamp(16rem, 55vw, 28rem);
+    object-fit: contain; background: var(--tint);
+    border-radius: 8px; scroll-snap-align: center;
+  }
+  .carousel-nav {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1rem; margin-top: 0.9rem;
+  }
+  .carousel-nav button {
+    width: 2.6rem; height: 2.6rem; border-radius: 50%;
+    border: none; cursor: pointer;
+    background: var(--purple); color: #fff;
+    font-size: 1.2rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .carousel-nav button:hover { background: var(--purple-bright); }
+  .carousel-count {
+    font-family: var(--display); font-weight: 700;
+    color: var(--purple); min-width: 4.5rem; text-align: center;
+  }
+
   /* ---------- Vote ---------- */
   .vote-band {
     margin-top: 5rem;
@@ -437,6 +467,49 @@
 
 </main>
 
+
+<!-- ============ PHOTOS ============ -->
+<section id="photos">
+  <div class="section-head">
+    <span class="eyebrow">In the Community</span>
+    <h2>AAJA is the people</h2>
+  </div>
+  <div class="carousel">
+    <div class="carousel-track" id="track">
+      <img src="photos/photo-01.jpg" alt="AAJA members gathered for a group photo in a library lounge">
+      <img src="photos/photo-02.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-03.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-04.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-05.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-06.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-07.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-08.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-09.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-10.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-11.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-12.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-13.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-14.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-15.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-16.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-17.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-18.jpg" alt="Team AAJA members with race bibs at the NYC Marathon expo" loading="lazy">
+      <img src="photos/photo-19.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-20.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-21.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-22.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-23.jpg" alt="Frank Bi on television as an AI newsroom trainer" loading="lazy">
+      <img src="photos/photo-24.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+      <img src="photos/photo-25.jpg" alt="Frank Bi with AAJA members and friends" loading="lazy">
+    </div>
+    <div class="carousel-nav">
+      <button type="button" id="prev" aria-label="Previous photo">&#8592;</button>
+      <span class="carousel-count" id="count">1 / 25</span>
+      <button type="button" id="next" aria-label="Next photo">&#8594;</button>
+    </div>
+  </div>
+</section>
+
 <!-- ============ HOW TO VOTE ============ -->
 <div class="vote-band" id="vote">
   <div class="vote-inner">
@@ -459,5 +532,15 @@
   <strong>Frank Bi for AAJA President</strong> &nbsp;&middot;&nbsp; frankforaaja.com &nbsp;&middot;&nbsp; #Frank4Prez
 </footer>
 
+<script>
+  const track = document.getElementById('track');
+  const count = document.getElementById('count');
+  const total = track.children.length;
+  const slideW = () => track.children[0].getBoundingClientRect().width + 12;
+  const index = () => Math.min(total - 1, Math.max(0, Math.round(track.scrollLeft / slideW())));
+  document.getElementById('prev').onclick = () => track.scrollBy({left: -slideW(), behavior: 'smooth'});
+  document.getElementById('next').onclick = () => track.scrollBy({left: slideW(), behavior: 'smooth'});
+  track.addEventListener('scroll', () => { count.textContent = (index() + 1) + ' / ' + total; }, {passive: true});
+</script>
 </body>
 </html>
