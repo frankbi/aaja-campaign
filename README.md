@@ -25,6 +25,15 @@ Every section and platform plank has its own anchor link you can share directly:
 - Experience: https://frankforaaja.com/#experience
 - How to Vote: https://frankforaaja.com/#vote
 
-## Still to fill in (marked with EDIT ME comments in index.html)
+## Social graphics
 
-- How to Vote: election open/close dates and the official voting portal link
+Shareable campaign graphics live in `graphics/` — grab them at:
+
+- Membership-check carousel (5 slides): https://frankforaaja.com/graphics/carousel-1.png through carousel-5.png
+- Animated version: https://frankforaaja.com/graphics/membership-check-carousel.gif
+
+Hashtag: **#Frank4Prez**
+
+## Still to fill in
+
+- How to Vote: closing time/deadline and the official voting portal link, when AAJA announces them
