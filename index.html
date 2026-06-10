@@ -29,6 +29,7 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; scroll-padding-top: 4.25rem; }
+  body { overflow-x: clip; }
   body {
     font-family: var(--sans);
     font-size: 1.0625rem;
@@ -212,13 +213,16 @@
   @media (max-width: 640px) { .exp-grid { grid-template-columns: 1fr; } }
 
   /* ---------- Photo carousel (filmstrip) ---------- */
+  #photos .section-head {
+    max-width: 47rem; margin: 0 auto 1rem; padding: 0 1.5rem;
+  }
   .carousel {
-    position: relative; margin-top: 2rem;
-    width: min(76rem, 100vw - 3rem);
-    margin-left: 50%; transform: translateX(-50%);
+    position: relative;
+    width: min(76rem, 100% - 3rem);
+    margin: 2rem auto 0;
   }
   .carousel-track {
-    display: flex; overflow-x: auto; scroll-snap-type: x proximity;
+    display: flex; overflow-x: auto;
     gap: 0.6rem;
     scrollbar-width: none; -webkit-overflow-scrolling: touch;
   }
@@ -227,7 +231,7 @@
     flex: 0 0 auto; width: auto;
     height: clamp(13rem, 32vw, 21rem);
     object-fit: cover; background: var(--tint);
-    border-radius: 8px; scroll-snap-align: start;
+    border-radius: 8px;
   }
   .carousel-nav {
     display: flex; align-items: center; justify-content: center;
@@ -534,19 +538,27 @@
 </footer>
 
 <script>
-  const track = document.getElementById('track');
-  const prev = document.getElementById('prev');
-  const next = document.getElementById('next');
-  const step = () => track.clientWidth * 0.8;
-  prev.onclick = () => track.scrollBy({left: -step(), behavior: 'smooth'});
-  next.onclick = () => track.scrollBy({left: step(), behavior: 'smooth'});
-  const update = () => {
-    prev.disabled = track.scrollLeft <= 5;
-    next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 5;
-  };
-  track.addEventListener('scroll', update, {passive: true});
-  window.addEventListener('load', update);
-  update();
+  (function () {
+    var track = document.getElementById('track');
+    var prev = document.getElementById('prev');
+    var next = document.getElementById('next');
+    function page(dir) {
+      var target = track.scrollLeft + dir * track.clientWidth * 0.8;
+      target = Math.max(0, Math.min(target, track.scrollWidth - track.clientWidth));
+      try { track.scrollTo({left: target, behavior: 'smooth'}); }
+      catch (e) { track.scrollLeft = target; }
+    }
+    prev.addEventListener('click', function () { page(-1); });
+    next.addEventListener('click', function () { page(1); });
+    function update() {
+      prev.disabled = track.scrollLeft <= 5;
+      next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 5;
+    }
+    track.addEventListener('scroll', update, {passive: true});
+    track.addEventListener('load', update, true);
+    window.addEventListener('resize', update);
+    update();
+  })();
 </script>
 </body>
 </html>
